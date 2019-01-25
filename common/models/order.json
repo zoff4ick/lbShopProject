@@ -1,0 +1,42 @@
+{
+    "name": "Order",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "properties": {
+        "shippingMethod": {
+            "type": "string",
+            "required": true,
+            "default": "novaPoshta"
+        },
+        "orderPrice": {
+            "type": "number",
+            "required": false
+        }
+    },
+    "validations": [],
+    "relations": { 
+        "productItem": {
+            "type": "hasMany",
+            "model": "CartItem",
+            "foreignKey": "orderId",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        
+        "owner": {
+            "type": "belongsTo",
+            "model": "user",
+            "foreignKey": "userId",
+            "options": {
+                "nestRemoting": true
+            }
+        }
+
+    },
+    "acls": [],
+    "methods": {}
+}

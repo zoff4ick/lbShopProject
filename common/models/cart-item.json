@@ -1,0 +1,36 @@
+{
+    "name": "CartItem",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "properties": {
+        "quantity": {
+            "type": "number",
+            "required": true
+        },
+        "totalSum": {
+            "type": "number",
+            "required": true,
+            "default": 0
+        },
+        "name": {
+            "type": "string",
+            "required": true
+        }
+    },
+    "validations": [],
+    "relations": {
+        "product": {
+            "type": "belongsTo",
+            "model": "Product",
+            "foreignKey": "productId",
+            "options": {
+                "nestRemoting": true
+            }
+        }
+    },
+    "acls": [],
+    "methods": {}
+}
