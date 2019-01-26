@@ -1,6 +1,9 @@
 'use strict';
 const app = require('../../server/server')
 module.exports = function (user) {
+
+    user.validatesUniquenessOf('email');
+
     user.afterRemote('create', async (ctx, user, next) => {
         const Cart = app.models.Cart;
         await Cart.create({
@@ -21,9 +24,7 @@ module.exports = function (user) {
             },
             where: { id: cartId }
         });
-        console.log(cart)
         const items = await cart.productItem.find({});
-        console.log(items);
 
         const Order = await user.app.models.Order.create({
             price: cart.totalSum,
@@ -45,6 +46,22 @@ module.exports = function (user) {
 
         
     }
+
+
+ user.awesomeEmail = async(userId)=>{
+       
+    };
+
+
+    user.remoteMethod(
+        'awesomeEmail',
+        {
+            description: 'Take nice email ',
+            http: { path: '/awesomeEmail', verb: 'get' },
+            accepts: { arg: 'userId', type: 'string', required: true, http: { source: 'query' } },
+            returns: null
+        }
+    )
 
     user.remoteMethod(
         'makeOrder',
